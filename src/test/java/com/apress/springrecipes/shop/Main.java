@@ -5,6 +5,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Properties;
 
 @Slf4j
 public class Main {
@@ -28,5 +37,25 @@ public class Main {
 
     }
 
+    @Test
+    public void test2() throws IOException {
+        // Resource resource = new ClassPathResource("discounts.properties");
+        Resource resource = new FileSystemResource("/Users/we/Downloads/springrecipes/src/main/resources/discounts.properties");
+        Properties props = PropertiesLoaderUtils.loadProperties(resource);
+
+        log.debug("And don't forget our discount!");
+        log.debug(props.toString());
+    }
+
+    @Test
+    public void test3() throws IOException {
+        ApplicationContext context = new AnnotationConfigApplicationContext(ShopConfiguration.class);
+
+        String alert = context.getMessage("alert.checkout", null, Locale.US);
+        String alert_inventory = context.getMessage("alert.inventory.checkout", new Object[]{"DVD-RW 3.0", new Date()}, Locale.US);
+
+        log.debug("The I18N message for alert.checkout is : " + alert);
+        log.debug("The I18N message for alert.inventory.checkout is : " + alert_inventory);
+    }
 
 }

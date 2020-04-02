@@ -2,6 +2,7 @@ package com.apress.springrecipes.shop.config;
 
 import com.apress.springrecipes.BannerLoader;
 import com.apress.springrecipes.shop.Battery;
+import com.apress.springrecipes.shop.Cashier;
 import com.apress.springrecipes.shop.Disc;
 import com.apress.springrecipes.shop.Product;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.io.Resource;
 
 @Configuration
@@ -54,6 +56,25 @@ public class ShopConfiguration {
         BannerLoader bl = new BannerLoader();
         bl.setBanner(banner);
         return bl;
+    }
+
+    @Bean
+    // 빈인스턴스는 반드시 messageSource로 명명해야 애플리케이션 컨텍스가 알아서 감지함.
+    public ReloadableResourceBundleMessageSource messageSource(){
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames("classpath:messages");
+        messageSource.setCacheSeconds(1);
+        return messageSource;
+    }
+
+    @Bean(initMethod = "openFile", destroyMethod = "closeFile")
+    public Cashier cashier(){
+        // String path = System.getProperty("java.io.tmpdir") + "/cashier";
+        String path = "/Users/we/Downloads/springrecipes/src/main/resources/tmpdir/cashier";
+        Cashier c1 = new Cashier();
+        c1.setFileName("checkout");
+        c1.setPath(path);
+        return c1;
     }
 
 }
