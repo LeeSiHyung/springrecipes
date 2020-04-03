@@ -16,6 +16,8 @@ public class SequeceGeneratorConfiguration {
     private PrefixGenerator prefixGenerator;
 
     // @Bean // 빈인스턴스 정의부
+    // @DependsOn("datePrefixGenerator") // 빈을 초기화 하는 순서를 보장한다. datePrefixGenerator 빈이 먼저 생성한다.
+    // @DependsOn({"datePrefixGenerator"}) // 리스트 형태도 가능하다.
     public SequenceGenerator sequenceGenerator(){
         SequenceGenerator seqgen = new SequenceGenerator();
         seqgen.setPrefix("30");
