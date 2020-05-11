@@ -36,6 +36,7 @@ dependencies {
     // implementation 'org.springframework.boot:spring-boot-starter-security'
     // implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
     // implementation 'org.springframework.boot:spring-boot-starter-webflux'
     // implementation 'org.apache.kafka:kafka-streams'
     // implementation 'org.springframework.kafka:spring-kafka'
@@ -58,6 +59,13 @@ dependencies {
     // testImplementation 'org.springframework.security:spring-security-test'
 
     compileOnly 'javax.inject:javax.inject:1'
+
+    testImplementation 'org.springframework.integration:spring-integration-test'
+
+    compileOnly 'org.springframework:spring-instrument:5.0.0.RELEASE'
+    compileOnly 'org.springframework:spring-aspects'
+    compileOnly 'org.springframework:spring-webmvc'
+
 
 }
 

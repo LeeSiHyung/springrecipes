@@ -1,0 +1,13 @@
+<!DOCTYPE aspectj PUBLIC "-//AspectJ//DTD//EN" "http://www.eclipse.org/aspectj/dtd/aspectj.dtd">
+<aspectj>
+    <weaver>
+        <include within="com.apress.springrecipes.calculator.*"/>
+    </weaver>
+
+    <aspects>
+        <aspect name="com.apress.springrecipes.calculator.ComplexCachingAspect"/>
+    </aspects>
+</aspectj>
+
+<!--  -ea -javaagent:C:\Users\dltlg\.gradle\caches\modules-2\files-2.1\org.aspectj\aspectjweaver\1.9.5\1740dc9140103b796d1722668805fd4cf852780c\aspectjweaver-1.9.5.jar  -->
+<!--  -ea -javaagent:C:\Users\dltlg\.gradle\caches\modules-2\files-2.1\org.springframework\spring-instrument\5.0.0.RELEASE\693ef5a0fddaa24d6b20fdac1ff4a6880764e0d\spring-instrument-5.0.0.RELEASE.jar  -->

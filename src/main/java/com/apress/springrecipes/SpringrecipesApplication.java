@@ -12,12 +12,11 @@ import org.springframework.stereotype.Component;
 //                 @ComponentScan.Filter(
 //                         type = FilterType.REGEX,
 //                         pattern = {
-//                                 "com.apress.springrecipes.sequence.*Dao",
-//                                 "com.apress.springrecipes.sequence.*Service"
+//                                 "com.apress.springrecipes.cour.*",
 //                         }
 //                 )
-//         },
-//         excludeFilters = {
+//         }
+//         , excludeFilters = {
 //                 @ComponentScan.Filter(
 //                         type = FilterType.ANNOTATION,
 //                         classes = {

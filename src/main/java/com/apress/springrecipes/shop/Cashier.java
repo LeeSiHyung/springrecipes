@@ -3,8 +3,12 @@ package com.apress.springrecipes.shop;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +18,12 @@ import java.io.*;
 import java.util.Date;
 import java.util.Locale;
 
-@Component
+// @Component
 @Setter
 @Getter
 @Slf4j
-public class Cashier {
+// public class Cashier implements BeanNameAware, ApplicationEventPublisherAware {
+public class Cashier implements BeanNameAware { // , ApplicationEventPublisherAware {
 
     @Autowired
     private MessageSource messageSource;
@@ -26,10 +31,13 @@ public class Cashier {
     @Value("checkout")
     private String fileName;
 
-    @Value("/Users/we/Downloads/springrecipes/src/main/resources/tmpdir/cashier")
+    @Value("/tmpdir/cashier")
     private String path;
 
     private BufferedWriter writer;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @PostConstruct
     public void openFile() throws IOException {
@@ -52,6 +60,9 @@ public class Cashier {
 
         writer.write(new Date() + "\t" + cart.getItems() + "\r\n");
         writer.flush();
+
+        CheckoutEvent event = new CheckoutEvent(cart, new Date());
+        applicationEventPublisher.publishEvent(event);
     }
 
     @PreDestroy
@@ -60,4 +71,13 @@ public class Cashier {
     }
 
 
+    @Override
+    public void setBeanName(String name) {
+        this.fileName = name;
+    }
+
+    // @Override
+    // public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+    //     this.applicationEventPublisher = applicationEventPublisher;
+    // }
 }

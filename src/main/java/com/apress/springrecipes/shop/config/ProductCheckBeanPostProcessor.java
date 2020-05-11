@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 
  // ShopConfiguration component scan 범위
-@Component
+// @Component
 @Slf4j
 public class ProductCheckBeanPostProcessor implements BeanPostProcessor {
 
