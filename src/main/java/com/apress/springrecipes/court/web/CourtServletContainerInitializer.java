@@ -23,5 +23,7 @@ public class CourtServletContainerInitializer implements ServletContainerInitial
         ServletRegistration.Dynamic courtRegistration = ctx.addServlet("court", dispatcherServlet);
         courtRegistration.setLoadOnStartup(1);
         courtRegistration.addMapping("/");
+
+        courtRegistration.setAsyncSupported(true); // 서블릿 비동기 모드
     }
 }
